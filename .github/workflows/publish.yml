@@ -1,24 +1,44 @@
 name: Publish to PyPI on Release
 
+# 触发条件：1.Release创建/预发布 2.手动触发
 on:
   release:
-    types: [created]  # 当有新Release创建时触发
+    types: [created, prereleased]  # 自动触发：正式发布/预发布都触发
+  workflow_dispatch:  # 新增：支持手动触发
+    inputs:
+      releaseVersion:
+        description: '要发布到PyPI的版本号（需与tag一致，如v1.0.0）'
+        required: true
+        type: string
+      isPreRelease:
+        description: '是否发布为PyPI预发布版本（dev/rc等）'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取完整历史，确保版本号匹配
 
-      - name: Install uv
+      - name: 安装uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Set up Python
+      - name: 设置Python环境
         run: uv python install
 
-      - name: Publish to PyPI
+      - name: 构建并发布到PyPI
         run: |
+          # 构建包（uv build会读取pyproject.toml的版本号）
           uv build
-          uv publish --token ${{ secrets.PYPI_API_TOKEN }}
+          
+          # 判断是否为预发布版本，添加--pre标记（PyPI会识别为预发布包）
+          if [[ "${{ github.event.inputs.isPreRelease || github.event.release.prerelease }}" == "true" ]]; then
+            uv publish --token ${{ secrets.PYPI_API_TOKEN }} --pre
+          else
+            uv publish --token ${{ secrets.PYPI_API_TOKEN }}
+          fi
