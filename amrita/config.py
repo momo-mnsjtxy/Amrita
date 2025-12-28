@@ -1,6 +1,6 @@
-"""Amrita核心配置模块
+"""MiniAgent 核心配置模块
 
-该模块定义了Amrita机器人的核心配置模型和获取配置的方法。
+该模块定义了 MiniAgent（基于 Amrita）机器人的核心配置模型和获取配置的方法。
 """
 
 from typing import Literal
@@ -10,7 +10,7 @@ from pydantic import BaseModel, model_validator
 
 
 class AmritaConfig(BaseModel):
-    """Amrita核心配置模型"""
+    """MiniAgent 核心配置模型（兼容保留 AmritaConfig 名称）"""
 
     # 日志目录
     log_dir: str = "logs"
@@ -23,7 +23,7 @@ class AmritaConfig(BaseModel):
     # 禁用的内置插件列表
     disabled_builtin_plugins: list[Literal["chat", "manager", "perm", "menu"]] = []
 
-    # Amrita日志级别
+    # MiniAgent 日志级别（配置键保持 amrita_log_level 以兼容历史配置）
     amrita_log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = (
         "WARNING"
     )
@@ -32,7 +32,7 @@ class AmritaConfig(BaseModel):
     public_group: int = 0
 
     # 机器人名称
-    bot_name: str = "Amrita"
+    bot_name: str = "MiniAgent"
 
     # 请求速率限制（间隔秒）
     rate_limit: int = 5
@@ -49,19 +49,19 @@ class AmritaConfig(BaseModel):
     @model_validator(mode="after")
     def _vali(self):
         if 10000 > self.admin_group > 0:
-            logger.warning("Amrita config 'admin_group' is invalid, set to -1")
+            logger.warning("MiniAgent config 'admin_group' is invalid, set to -1")
             self.admin_group = -1
         if self.admin_group == -1:
             logger.info(
-                "Amrita config 'admin_group' is disabled, so some push messages will just be printed to console."
+                "MiniAgent config 'admin_group' is disabled, so some push messages will just be printed to console."
             )
         return self
 
 
 def get_amrita_config() -> AmritaConfig:
-    """获取Amrita配置
+    """获取 MiniAgent 配置（兼容保留 get_amrita_config 名称）
 
     Returns:
-        AmritaConfig: Amrita配置对象
+        AmritaConfig: 配置对象
     """
     return get_plugin_config(AmritaConfig)

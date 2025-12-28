@@ -2,10 +2,12 @@ from importlib import metadata
 
 __version__ = "unknown"
 
-try:
-    __version__ = metadata.version("amrita")
-except metadata.PackageNotFoundError:
-    pass
+for _dist_name in ("miniagent", "amrita"):
+    try:
+        __version__ = metadata.version(_dist_name)
+        break
+    except metadata.PackageNotFoundError:
+        continue
 
 
 def get_amrita_version():

@@ -1,9 +1,9 @@
 [project]
-name = "amrita"
+name = "miniagent"
 version = "0.5.0"
-description = "A powerful AI bot framework powered by NoneBot2"
+description = "MiniAgent: an AI bot framework powered by NoneBot2 (based on Amrita)"
 readme = "README.md"
-license = "GPL-3.0-or-later"
+license = "AGPL-3.0-or-later"
 requires-python = ">=3.10, <4.0"
 dependencies = [
     "tomli>=2.0.0",
@@ -48,12 +48,14 @@ full = [
 ]
 
 [project.scripts]
-amrita = "amrita.cli:main"
+miniagent = "amrita.cli:main"
+amrita = "amrita.cli:main" # backward-compatible alias
 
 [project.urls]
-"Homepage" = "https://github.com/LiteSuggarDEV/Amrita"
-"Source" = "https://github.com/LiteSuggarDEV/Amrita"
-"Issue Tracker" = "https://github.com/LiteSuggarDEV/Amrita/issues"
+"Homepage" = "https://github.com/momo-mnsjtxy/MiniAgent"
+"Source" = "https://github.com/momo-mnsjtxy/MiniAgent"
+"Issue Tracker" = "https://github.com/momo-mnsjtxy/MiniAgent/issues"
+"Upstream" = "https://github.com/LiteSuggarDEV/Amrita"
 
 [tool.setuptools.packages.find]
 include = ["amrita", "amrita.*"]
@@ -67,14 +69,14 @@ dev-dependencies = [
     "ruff>=0.12.8",
     "nonebot-plugin-orm[default]>=0.8.2",
     "pytest>=8.4.1",
-    "amrita[full]",
+    "miniagent[full]",
     "mcp>=1.21.1",
     "pyright>=1.1.407",
 ]
 package = true
 
 [tool.uv.sources]
-amrita = { workspace = true }
+miniagent = { workspace = true }
 
 [tool.ruff]
 line-length = 88

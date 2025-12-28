@@ -1,6 +1,6 @@
-"""Amrita资源模板模块
+"""MiniAgent 资源模板模块
 
-该模块定义了Amrita项目所需的各类资源模板，包括环境配置、git忽略文件、README模板等。
+该模块定义了 MiniAgent（基于 Amrita）项目所需的各类资源模板，包括环境配置、git 忽略文件、README 模板等。
 """
 
 # 默认环境配置文件内容
@@ -11,7 +11,7 @@ HOST=127.0.0.1
 LOCALSTORE_USE_CWD=true
 DATABASE_URL=aiosqlite:///db.sqlite3
 LOG_DIR=logs
-BOT_NAME=Amrita
+BOT_NAME=MiniAgent
 RATE_LIMIT=5
 WEBUI_ENABLE=true
 WEBUI_USER_NAME=admin
@@ -217,16 +217,15 @@ README = """
 
 ## How to start
 
-1. generate project using `amrita init` .
-2. create your plugin using `amrita plugin new` .
-3. writing your plugins under `{project_name}/plugins` folder.
-4. run your bot using `amrita run` .
+1. generate project using `miniagent init` (or legacy alias: `amrita init`).
+2. create your plugin using `miniagent plugin new`.
+3. write your plugins under `{project_name}/plugins` folder.
+4. run your bot using `miniagent run`.
 
 ## Documentation
 
-[AmritaDocs](https://amrita.suggar.top)
-
-See Nonebot [Docs](https://nonebot.dev/)
+- Upstream (Amrita): https://amrita.suggar.top
+- NoneBot: https://nonebot.dev/
 """
 
 # 插件示例代码模板

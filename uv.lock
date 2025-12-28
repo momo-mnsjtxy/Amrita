@@ -181,112 +181,6 @@ wheels = [
 ]
 
 [[package]]
-name = "amrita"
-version = "0.5.0"
-source = { editable = "." }
-dependencies = [
-    { name = "aiofiles" },
-    { name = "click" },
-    { name = "colorama" },
-    { name = "nb-cli" },
-    { name = "nonebot-plugin-localstore" },
-    { name = "packaging" },
-    { name = "pip" },
-    { name = "python-multipart" },
-    { name = "pytz" },
-    { name = "requests" },
-    { name = "toml" },
-    { name = "tomli" },
-    { name = "tomli-w" },
-    { name = "typing-extensions" },
-    { name = "uv" },
-    { name = "zipp" },
-]
-
-[package.optional-dependencies]
-full = [
-    { name = "aiohttp" },
-    { name = "async-lru" },
-    { name = "bcrypt" },
-    { name = "dotenv" },
-    { name = "fastmcp" },
-    { name = "importlib" },
-    { name = "jieba" },
-    { name = "jinja2" },
-    { name = "nonebot-adapter-onebot" },
-    { name = "nonebot-plugin-orm", extra = ["default"] },
-    { name = "nonebot2", extra = ["fastapi"] },
-    { name = "openai" },
-    { name = "pillow" },
-    { name = "psutil" },
-    { name = "pydantic" },
-    { name = "pytz" },
-    { name = "stubs" },
-    { name = "uvicorn" },
-    { name = "watchfiles" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "amrita", extra = ["full"] },
-    { name = "mcp" },
-    { name = "nonebot-plugin-orm", extra = ["default"] },
-    { name = "pyright" },
-    { name = "pytest" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiofiles", specifier = ">=24.1.0" },
-    { name = "aiohttp", marker = "extra == 'full'", specifier = ">=3.13.2" },
-    { name = "async-lru", marker = "extra == 'full'", specifier = ">=2.0.5" },
-    { name = "bcrypt", marker = "extra == 'full'", specifier = ">=4.3.0" },
-    { name = "click", specifier = ">=8.2.1" },
-    { name = "colorama", specifier = ">=0.4" },
-    { name = "dotenv", marker = "extra == 'full'", specifier = ">=0.9.9" },
-    { name = "fastmcp", marker = "extra == 'full'", specifier = ">=2.13.0.2" },
-    { name = "importlib", marker = "extra == 'full'", specifier = ">=1.0.4" },
-    { name = "jieba", marker = "extra == 'full'", specifier = ">=0.42.1" },
-    { name = "jinja2", marker = "extra == 'full'", specifier = ">=3.1.6" },
-    { name = "nb-cli", specifier = ">=1.0.0" },
-    { name = "nonebot-adapter-onebot", marker = "extra == 'full'", specifier = ">=2.4.6" },
-    { name = "nonebot-plugin-localstore", specifier = ">=0.7.4" },
-    { name = "nonebot-plugin-orm", extras = ["default"], marker = "extra == 'full'", specifier = ">=0.8.2" },
-    { name = "nonebot2", extras = ["fastapi"], marker = "extra == 'full'", specifier = ">=2.4.3" },
-    { name = "openai", marker = "extra == 'full'", specifier = ">=1.66.3,<=1.99.0" },
-    { name = "packaging", specifier = ">=25.0" },
-    { name = "pillow", marker = "extra == 'full'", specifier = ">=12.0.0" },
-    { name = "pip", specifier = ">=25.2" },
-    { name = "psutil", marker = "extra == 'full'", specifier = ">=7.0.0" },
-    { name = "pydantic", marker = "extra == 'full'", specifier = ">=2.4.2" },
-    { name = "python-multipart", specifier = ">=0.0.20" },
-    { name = "pytz", specifier = ">=2025.2" },
-    { name = "pytz", marker = "extra == 'full'", specifier = ">=2025.1" },
-    { name = "requests", specifier = ">=2.0" },
-    { name = "stubs", marker = "extra == 'full'", specifier = ">=1.0.0" },
-    { name = "toml", specifier = ">=0.10.2" },
-    { name = "tomli", specifier = ">=2.0.0" },
-    { name = "tomli-w", specifier = ">=1.0.0" },
-    { name = "typing-extensions", specifier = ">=4.6.0" },
-    { name = "uv", specifier = ">=0.8.12" },
-    { name = "uvicorn", marker = "extra == 'full'", specifier = ">=0.35.0" },
-    { name = "watchfiles", marker = "extra == 'full'", specifier = "<1.0.0" },
-    { name = "zipp", specifier = ">=3.23.0" },
-]
-provides-extras = ["full"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "amrita", extras = ["full"], editable = "." },
-    { name = "mcp", specifier = ">=1.21.1" },
-    { name = "nonebot-plugin-orm", extras = ["default"], specifier = ">=0.8.2" },
-    { name = "pyright", specifier = ">=1.1.407" },
-    { name = "pytest", specifier = ">=8.4.1" },
-    { name = "ruff", specifier = ">=0.12.8" },
-]
-
-[[package]]
 name = "annotated-types"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1526,6 +1420,112 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba", size = 8729, upload-time = "2022-08-14T12:40:10.846Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8", size = 9979, upload-time = "2022-08-14T12:40:09.779Z" },
+]
+
+[[package]]
+name = "miniagent"
+version = "0.5.0"
+source = { editable = "." }
+dependencies = [
+    { name = "aiofiles" },
+    { name = "click" },
+    { name = "colorama" },
+    { name = "nb-cli" },
+    { name = "nonebot-plugin-localstore" },
+    { name = "packaging" },
+    { name = "pip" },
+    { name = "python-multipart" },
+    { name = "pytz" },
+    { name = "requests" },
+    { name = "toml" },
+    { name = "tomli" },
+    { name = "tomli-w" },
+    { name = "typing-extensions" },
+    { name = "uv" },
+    { name = "zipp" },
+]
+
+[package.optional-dependencies]
+full = [
+    { name = "aiohttp" },
+    { name = "async-lru" },
+    { name = "bcrypt" },
+    { name = "dotenv" },
+    { name = "fastmcp" },
+    { name = "importlib" },
+    { name = "jieba" },
+    { name = "jinja2" },
+    { name = "nonebot-adapter-onebot" },
+    { name = "nonebot-plugin-orm", extra = ["default"] },
+    { name = "nonebot2", extra = ["fastapi"] },
+    { name = "openai" },
+    { name = "pillow" },
+    { name = "psutil" },
+    { name = "pydantic" },
+    { name = "pytz" },
+    { name = "stubs" },
+    { name = "uvicorn" },
+    { name = "watchfiles" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mcp" },
+    { name = "miniagent", extra = ["full"] },
+    { name = "nonebot-plugin-orm", extra = ["default"] },
+    { name = "pyright" },
+    { name = "pytest" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiofiles", specifier = ">=24.1.0" },
+    { name = "aiohttp", marker = "extra == 'full'", specifier = ">=3.13.2" },
+    { name = "async-lru", marker = "extra == 'full'", specifier = ">=2.0.5" },
+    { name = "bcrypt", marker = "extra == 'full'", specifier = ">=4.3.0" },
+    { name = "click", specifier = ">=8.2.1" },
+    { name = "colorama", specifier = ">=0.4" },
+    { name = "dotenv", marker = "extra == 'full'", specifier = ">=0.9.9" },
+    { name = "fastmcp", marker = "extra == 'full'", specifier = ">=2.13.0.2" },
+    { name = "importlib", marker = "extra == 'full'", specifier = ">=1.0.4" },
+    { name = "jieba", marker = "extra == 'full'", specifier = ">=0.42.1" },
+    { name = "jinja2", marker = "extra == 'full'", specifier = ">=3.1.6" },
+    { name = "nb-cli", specifier = ">=1.0.0" },
+    { name = "nonebot-adapter-onebot", marker = "extra == 'full'", specifier = ">=2.4.6" },
+    { name = "nonebot-plugin-localstore", specifier = ">=0.7.4" },
+    { name = "nonebot-plugin-orm", extras = ["default"], marker = "extra == 'full'", specifier = ">=0.8.2" },
+    { name = "nonebot2", extras = ["fastapi"], marker = "extra == 'full'", specifier = ">=2.4.3" },
+    { name = "openai", marker = "extra == 'full'", specifier = ">=1.66.3,<=1.99.0" },
+    { name = "packaging", specifier = ">=25.0" },
+    { name = "pillow", marker = "extra == 'full'", specifier = ">=12.0.0" },
+    { name = "pip", specifier = ">=25.2" },
+    { name = "psutil", marker = "extra == 'full'", specifier = ">=7.0.0" },
+    { name = "pydantic", marker = "extra == 'full'", specifier = ">=2.4.2" },
+    { name = "python-multipart", specifier = ">=0.0.20" },
+    { name = "pytz", specifier = ">=2025.2" },
+    { name = "pytz", marker = "extra == 'full'", specifier = ">=2025.1" },
+    { name = "requests", specifier = ">=2.0" },
+    { name = "stubs", marker = "extra == 'full'", specifier = ">=1.0.0" },
+    { name = "toml", specifier = ">=0.10.2" },
+    { name = "tomli", specifier = ">=2.0.0" },
+    { name = "tomli-w", specifier = ">=1.0.0" },
+    { name = "typing-extensions", specifier = ">=4.6.0" },
+    { name = "uv", specifier = ">=0.8.12" },
+    { name = "uvicorn", marker = "extra == 'full'", specifier = ">=0.35.0" },
+    { name = "watchfiles", marker = "extra == 'full'", specifier = "<1.0.0" },
+    { name = "zipp", specifier = ">=3.23.0" },
+]
+provides-extras = ["full"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mcp", specifier = ">=1.21.1" },
+    { name = "miniagent", extras = ["full"], editable = "." },
+    { name = "nonebot-plugin-orm", extras = ["default"], specifier = ">=0.8.2" },
+    { name = "pyright", specifier = ">=1.1.407" },
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "ruff", specifier = ">=0.12.8" },
 ]
 
 [[package]]

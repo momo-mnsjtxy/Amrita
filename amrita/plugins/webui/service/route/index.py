@@ -60,7 +60,8 @@ async def index(request: Request):
     except HTTPException:
         # 如果没有有效令牌，显示登录页面
         return TemplatesManager().TemplateResponse(
-            "index.html", {"request": request, "logo_url": "/static/images/Amrita.png"}
+            "index.html",
+            {"request": request, "logo_url": "/static/images/MiniAgent.svg"},
         )
 
 
