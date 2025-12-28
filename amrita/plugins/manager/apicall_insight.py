@@ -25,5 +25,9 @@ async def _(bot: Bot, event: MessageEvent):
         ]
     )
     await send_forward_msg(
-        bot, event, "Amrita-Stats", str(event.self_id), [MessageSegment.text(msg)]
+        bot,
+        event,
+        "MiniAgent-Stats",
+        str(event.self_id),
+        [MessageSegment.text(msg)],
     )

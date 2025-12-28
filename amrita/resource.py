@@ -201,7 +201,7 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 
-# Amrita
+# MiniAgent (based on Amrita)
 config/
 # bot.py
 data/
@@ -209,7 +209,7 @@ cache/
 logs/
 .env.*
 
-# End of Amrita"""
+# End of MiniAgent"""
 
 # README文件模板
 README = """

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amrita Dashboard - Login</title>
+    <title>MiniAgent Dashboard - Login</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       :root {
@@ -396,16 +396,16 @@
         {% if logo_url %}
         <img
           src="{{ logo_url }}"
-          alt="Amrita Logo"
+          alt="MiniAgent Logo"
           class="logo"
           height="200"
           width="200"
         />
         {% else %}
-        <div class="logo-circle">A</div>
+        <div class="logo-circle">M</div>
         {% endif %}
-        <h1>Amrita Dashboard</h1>
-        <div class="subtitle">登录到Amrita</div>
+        <h1>MiniAgent Dashboard</h1>
+        <div class="subtitle">登录到 MiniAgent</div>
       </div>
       <form action="/login" method="post">
         <div class="form-group">
@@ -430,12 +430,16 @@
         </div>
         <button type="submit" class="login-btn">登录</button>
         <div class="button-extensions">
-          <a href="/password-help" class="extension-btn">忘记密码?</a>
-          <a href="https://github.com/AmritaBot/Amrita" class="extension-btn">GitHub</a>
+          <a href="/password-help" class="extension-btn">密码帮助</a>
+          <a
+            href="https://github.com/momo-mnsjtxy/MiniAgent"
+            class="extension-btn"
+            >GitHub</a
+          >
         </div>
       </form>
       <div class="footer">
-        &copy; 2023-2025 Amrita Dashboard. 使用AGPL-3.0许可证。
+        &copy; 2023-2025 MiniAgent Dashboard（based on Amrita）. 使用AGPL-3.0许可证。
       </div>
     </div>
     <script>

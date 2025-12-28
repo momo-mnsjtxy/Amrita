@@ -134,7 +134,7 @@ class BaseDataManager(ABC, Generic[T]):
 
 class UniConfigManager(Generic[T]):
     """
-    为Amrita/NoneBot插件设计的统一配置管理器
+    为 MiniAgent / NoneBot 插件设计的统一配置管理器（基于 Amrita 体系）
 
     提供配置文件管理、热重载、文件监控等功能，支持插件的配置管理需求。
     使用单例模式确保全局唯一实例。

@@ -12,7 +12,7 @@
 
 MiniAgent 是一个基于 [NoneBot2](https://nonebot.dev/) 的聊天机器人框架，聚焦于 LLM / Agent 场景，支持多种大语言模型与协议适配器，并提供 CLI 与 WebUI 以便快速部署与运维。
 
-> 重要声明：MiniAgent 基于上游项目 **[Amrita](https://github.com/LiteSuggarDEV/Amrita)** 二次开发与改进。
+> 重要声明：MiniAgent 基于上游项目 **[Amrita](https://github.com/LiteSuggarDEV/Amrita)** 二次开发与改进（上游作者/维护者：LiteSuggarDEV）。
 > 本项目保留并尊重原项目的作者署名、许可证与相关版权声明。
 
 ## 🌟 特性亮点

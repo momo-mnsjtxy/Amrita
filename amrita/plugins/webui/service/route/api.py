@@ -184,7 +184,7 @@ async def list_plugins(request: Request):
                 else (
                     "(不适用)"
                     if "amrita.plugins." not in plugin.module_name
-                    else "Amrita内置插件"
+                    else "MiniAgent内置插件"
                 )
             ),
         }

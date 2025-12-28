@@ -63,7 +63,7 @@ async def mcp_status(bot: Bot, matcher: Matcher, event: MessageEvent, arg: list[
         ]
 
         await send_forward_msg(
-            bot, event, "Amrita-MCP", str(event.self_id), detailed_info
+            bot, event, "MiniAgent-MCP", str(event.self_id), detailed_info
         )
 
     await matcher.finish(std_txt)
