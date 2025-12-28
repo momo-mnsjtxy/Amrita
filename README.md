@@ -1,4 +1,4 @@
-# PROJ.Amrita 🌸 - 基于 NoneBot 的 LLM 聊天机器人框架
+# PROJ.MiniAgent 🌸 - 基于 NoneBot 的 LLM 聊天机器人框架（基于Amrita改进）
 
 <p align= "center">
   <img src="./logo/Amrita-nobg.png" width=400 height=400>
@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/NoneBot-2.0+-red?logo=nonebot" alt="NoneBot">
 </p>
 
-Amrita 是一个基于[NoneBot2](https://nonebot.dev/)的强大聊天机器人框架，专为快速构建和部署智能聊天机器人而设计。它不仅是一个 CLI 工具，更是一个完整的 LLM 聊天机器人解决方案，支持多种大语言模型和适配器。
+MiniAgent 是一个基于[NoneBot2](https://nonebot.dev/)开发，Amrita改进的强大聊天机器人框架，专为快速构建和部署智能聊天机器人而设计。它不仅是一个 CLI 工具，更是一个完整的 LLM 聊天机器人解决方案，支持多种大语言模型和适配器。
 
 ## 🌟 特性亮点
 
@@ -26,12 +26,12 @@ Amrita 是一个基于[NoneBot2](https://nonebot.dev/)的强大聊天机器人�
 
 ## 📚 文档和资源
 
-- [官方文档](https://amrita.suggar.top)
-- [问题反馈](https://github.com/LiteSuggarDEV/Amrita/issues)
+- [原官方文档](https://amrita.suggar.top)
+- [问题反馈](https://github.com/momo-mnsjtxy/Amrita/issues)
 
 ## 🤝 贡献
 
-欢迎提交 Issue 和 Pull Request 来帮助改进 Amrita！
+欢迎提交 Issue 和 Pull Request 来帮助改进 MiniAgent！
 
 见[贡献指南](CONTRIBUTING.md)
 
