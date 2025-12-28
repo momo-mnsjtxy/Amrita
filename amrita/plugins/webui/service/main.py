@@ -18,6 +18,51 @@ from .authlib import TOKEN_KEY, AuthManager, TokenManager
 TEMPLATES_PATH = Path(__file__).resolve().parent / "templates"
 
 app: FastAPI = nonebot.get_app()
+
+# Add security middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """
+    Add security headers to all responses
+    """
+    response = await call_next(request)
+
+    # Content Security Policy - prevent XSS and other attacks
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "  # Note: unsafe-inline/eval should be removed in production
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; "
+        "font-src 'self'; "
+        "connect-src 'self'; "
+        "frame-src 'none'; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'"
+    )
+
+    # XSS Protection
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+
+    # Prevent MIME sniffing
+    response.headers["X-Content-Type-Options"] = "nosniff"
+
+    # Prevent clickjacking
+    response.headers["X-Frame-Options"] = "DENY"
+
+    # Referrer Policy
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+
+    # Permissions Policy
+    response.headers["Permissions-Policy"] = (
+        "geolocation=(), "
+        "microphone=(), "
+        "camera=(), "
+        "payment=()"
+    )
+
+    return response
+
 app.mount(
     "/static",
     StaticFiles(directory=Path(__file__).resolve().parent / "static"),

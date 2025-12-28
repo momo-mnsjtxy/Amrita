@@ -310,7 +310,7 @@ async def _call_with_presets(
 
         logger.debug(f"开始获取 {preset.model} 的对话")
         logger.debug(f"预设：{pname}")
-        logger.debug(f"密钥：{preset.api_key[:7]}...")
+        logger.debug(f"密钥：{len(preset.api_key) * '*' if preset.api_key else 'None'}...")
         logger.debug(f"协议：{preset.protocol}")
         logger.debug(f"API地址：{preset.base_url}")
         logger.debug(f"模型：{preset.model}")

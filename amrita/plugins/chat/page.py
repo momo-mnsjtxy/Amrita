@@ -45,6 +45,39 @@ async def create_model(request: Request):
                 {"success": False, "message": "缺少模型预设名称"}, status_code=400
             )
 
+        # Input validation and sanitization
+        if not isinstance(name, str) or len(name) > 100:
+            return JSONResponse(
+                {"success": False, "message": "无效的模型预设名称"}, status_code=400
+            )
+
+        if not isinstance(model, str) or len(model) > 200:
+            return JSONResponse(
+                {"success": False, "message": "无效的模型名称"}, status_code=400
+            )
+
+        if base_url and (not isinstance(base_url, str) or len(base_url) > 500):
+            return JSONResponse(
+                {"success": False, "message": "无效的API地址"}, status_code=400
+            )
+
+        if api_key and (not isinstance(api_key, str) or len(api_key) > 200):
+            return JSONResponse(
+                {"success": False, "message": "无效的API密钥"}, status_code=400
+            )
+
+        if protocol and (not isinstance(protocol, str) or len(protocol) > 50):
+            return JSONResponse(
+                {"success": False, "message": "无效的协议"}, status_code=400
+            )
+
+        # Sanitize inputs to prevent injection
+        name = name.strip()
+        model = model.strip()
+        base_url = base_url.strip() if base_url else ""
+        api_key = api_key.strip() if api_key else ""
+        protocol = protocol.strip() if protocol else "__main__"
+
         # 创建模型预设
         from amrita.plugins.chat.config import ModelPreset
 

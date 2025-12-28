@@ -76,6 +76,45 @@ async def update_config(request: Request):
             content={"message": "Invalid request data"},
         )
 
+    # Security validation: only allow .env* files
+    if not filename.startswith(".env"):
+        return JSONResponse(
+            status_code=403,
+            content={"message": "Only .env* files are allowed"},
+        )
+
+    # Security validation: prevent path traversal
+    if ".." in filename or filename.startswith("/") or filename.startswith("\\"):
+        return JSONResponse(
+            status_code=403,
+            content={"message": "Invalid filename - path traversal detected"},
+        )
+
+    # Security validation: validate environment file content
+    try:
+        # Basic validation: check for common malicious patterns
+        malicious_patterns = [
+            "import ",
+            "exec(",
+            "eval(",
+            "os.system(",
+            "subprocess.",
+            "__import__(",
+            "pickle.",
+            "execfile(",
+        ]
+        for pattern in malicious_patterns:
+            if pattern in content.lower():
+                return JSONResponse(
+                    status_code=403,
+                    content={"message": "Invalid content - malicious pattern detected"},
+                )
+    except Exception:
+        return JSONResponse(
+            status_code=400,
+            content={"message": "Invalid content format"},
+        )
+
     try:
         # 写入指定文件
         env_file_path = PROJECT_ROOT / filename
@@ -97,6 +136,20 @@ async def get_config(filename: str):
     获取指定配置文件内容
     """
     try:
+        # Security validation: only allow .env* files
+        if not filename.startswith(".env"):
+            return JSONResponse(
+                status_code=403,
+                content={"message": "Only .env* files are allowed"},
+            )
+
+        # Security validation: prevent path traversal
+        if ".." in filename or filename.startswith("/") or filename.startswith("\\"):
+            return JSONResponse(
+                status_code=403,
+                content={"message": "Invalid filename - path traversal detected"},
+            )
+
         # 读取指定文件
         env_file_path = PROJECT_ROOT / filename
         if not env_file_path.exists():

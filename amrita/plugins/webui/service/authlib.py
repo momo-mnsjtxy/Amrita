@@ -6,6 +6,7 @@ import re
 import secrets
 from abc import ABC
 from asyncio import Lock
+from collections import defaultdict
 from datetime import datetime, timedelta
 from typing import TypeVar, overload
 
@@ -101,6 +102,46 @@ class LoginRateLimiter:
         """
         async with self.__limiter_lock:
             self.__requests.pop(ip, None)
+
+
+class GlobalAPIRateLimiter:
+    """
+    全局API速率限制器，防止API滥用
+    """
+
+    _instance = None
+    __limiter_lock: Lock
+    # 存储IP地址和对应的请求计数
+    __request_counts: dict[str, list[datetime]]
+
+    def __new__(cls) -> Self:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls.__limiter_lock = Lock()
+            cls.__request_counts = defaultdict(list)
+        return cls._instance
+
+    async def is_allowed(self, ip: str, limit: int = 100, window: int = 60) -> bool:
+        """
+        检查指定IP是否允许API请求
+        默认: 60秒内最多允许100次请求
+        """
+        async with self.__limiter_lock:
+            now = datetime.now(utc)
+            # 清理窗口期外的请求记录
+            self.__request_counts[ip] = [
+                req_time
+                for req_time in self.__request_counts[ip]
+                if req_time > now - timedelta(seconds=window)
+            ]
+
+            # 检查请求数量
+            if len(self.__request_counts[ip]) >= limit:
+                return False
+
+            # 记录本次请求
+            self.__request_counts[ip].append(now)
+            return True
 
 
 class TokenManager:
