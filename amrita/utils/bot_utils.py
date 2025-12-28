@@ -104,7 +104,7 @@ def init():
                     if isinstance(bot, Bot):
                         await send_forward_msg_to_admin(
                             bot,
-                            "Amrita-Exception",
+                            "MiniAgent-Exception",
                             bot.self_id,
                             [MessageSegment.text(content)],
                         )
@@ -124,7 +124,9 @@ def init():
     logger.add(AsyncErrorHandler(), level="ERROR")
     logger.add(EventRecorder(), level="WARNING")
     nonebot.init()
-    logger.success(f"Amrita v{get_amrita_version()} is initializing......")
+    logger.success(
+        f"MiniAgent v{get_amrita_version()} is initializing...... (based on Amrita)"
+    )
     driver = nonebot.get_driver()
     driver.register_adapter(ONEBOT_V11Adapter)
     config = get_amrita_config()

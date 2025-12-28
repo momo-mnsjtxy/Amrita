@@ -1,6 +1,8 @@
 # 贡献指南
 
-感谢您对 Amrita 项目的兴趣！本指南将帮助您了解如何为项目做出贡献。
+感谢您对 MiniAgent 项目的兴趣！本指南将帮助您了解如何为项目做出贡献。
+
+> 说明：MiniAgent 基于上游项目 Amrita（二次开发与改进），本贡献指南面向 MiniAgent；同时请尊重并遵循上游项目的许可证与署名。
 
 ## 📋 目录
 
@@ -15,7 +17,9 @@
 
 ## 项目概述
 
-Amrita 是一个基于 [NoneBot2](https://nonebot.dev/) 的强大聊天机器人框架，专为快速构建和部署智能聊天机器人而设计。它不仅是一个 CLI 工具，更是一个完整的 LLM 聊天机器人解决方案，支持多种大语言模型和适配器。
+MiniAgent 是一个基于 [NoneBot2](https://nonebot.dev/) 的聊天机器人框架，聚焦于 LLM / Agent 场景，并提供 CLI 与 WebUI 以便快速部署与运维。
+
+MiniAgent 基于上游项目 **Amrita** 二次开发与改进： https://github.com/LiteSuggarDEV/Amrita
 
 ## 技术栈
 
@@ -33,8 +37,8 @@ Amrita 是一个基于 [NoneBot2](https://nonebot.dev/) 的强大聊天机器人
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/LiteSuggarDEV/Amrita.git
-cd Amrita
+git clone https://github.com/momo-mnsjtxy/MiniAgent.git
+cd MiniAgent
 ```
 
 ### 2. 安装依赖
@@ -69,19 +73,19 @@ cp example/.env.example .env
 ### 4. 运行项目
 
 ```bash
-# 创建Bot.py后运行
-uv run amrita entry
+# 创建 Bot.py 后运行
+uv run miniagent entry  # 或: uv run amrita entry
 uv run bot.py
 
-# 使用CLI运行
-uv run amrita run
+# 使用 CLI 运行
+uv run miniagent run  # 或: uv run amrita run
 ```
 
 ## 项目结构
 
 ```t
-Amrita/
-├── amrita/                 # 核心包
+MiniAgent/
+├── amrita/                 # 核心包（历史原因保留包名 amrita）
 │   ├── API.py              # API 接口定义
 │   ├── __init__.py         # 包初始化
 │   ├── bot.py              # 机器人主入口
@@ -109,7 +113,7 @@ Amrita/
 
 ### 插件系统
 
-Amrita 使用插件化架构，主要插件包括：
+MiniAgent 使用插件化架构，主要插件包括：
 
 - **chat**: 核心聊天功能，支持多种 LLM、会话管理、消息处理
 - **manager**: 机器人管理功能，包括自动清理、封禁解封等
@@ -227,7 +231,8 @@ git push origin feature/your-feature-name
 
 ## 联系方式
 
-- [GitHub Issues](https://github.com/LiteSuggarDEV/Amrita/issues)
-- 项目文档: `https://amrita.suggar.top`
+- MiniAgent Issues: https://github.com/momo-mnsjtxy/MiniAgent/issues
+- 上游 Amrita Issues: https://github.com/LiteSuggarDEV/Amrita/issues
+- 上游文档（Amrita）: https://amrita.suggar.top
 
 感谢您的贡献！

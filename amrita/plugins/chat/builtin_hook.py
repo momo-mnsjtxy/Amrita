@@ -304,12 +304,16 @@ async def agent_core(event: BeforeChatEvent) -> None:
     if not tools:
         logger.warning("未定义任何有效工具！Tools Workflow已跳过。")
         return
-    if str(os.getenv("AMRITA_IGNORE_AGENT_TOOLS")).lower() == "true" and (
+    ignore_agent_tools = os.getenv("MINIAGENT_IGNORE_AGENT_TOOLS") or os.getenv(
+        "AMRITA_IGNORE_AGENT_TOOLS"
+    )
+    if str(ignore_agent_tools).lower() == "true" and (
         config.llm_config.tools.agent_mode_enable
         and len(tools) == len(AGENT_PROCESS_TOOLS)
     ):
         logger.warning(
-            "注意：当前工具类型仅有Agent模式过程工具，而无其他有效工具定义，这通常不是使用Agent模式的最佳实践。配置环境变量AMRITA_IGNORE_AGENT_TOOLS=true可忽略此警告。"
+            "注意：当前工具类型仅有 Agent 模式过程工具，而无其他有效工具定义，这通常不是使用 Agent 模式的最佳实践。\n"
+            "配置环境变量 MINIAGENT_IGNORE_AGENT_TOOLS=true（或兼容 AMRITA_IGNORE_AGENT_TOOLS=true）可忽略此警告。"
         )
 
     try:

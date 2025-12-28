@@ -66,12 +66,12 @@ def _load_plugin(self, name: str) -> Plugin | None:
 
 def main():
     global __name__
-    __name__ = "Amrita Loader"
+    __name__ = "MiniAgent Loader"
     nonebot.plugin.manager.PluginManager.load_plugin = _load_plugin
 
     os.environ["LOG_LEVEL"] = "DEBUG"
     os.environ["ALEMBIC_STARTUP_CHECK"] = "false"
-    print("---AMRITA LOADER IS LOADING---")
+    print("---MINIAGENT LOADER IS LOADING---")
     amrita.init()
     logger.info("Loading driver...")
     driver = nonebot.get_driver()

@@ -1,4 +1,6 @@
-# Amrita Security Configuration
+# MiniAgent Security Configuration
+
+> MiniAgent 基于上游项目 Amrita 二次开发与改进，本安全说明适用于 MiniAgent。
 
 ## Security Features
 

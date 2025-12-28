@@ -27,8 +27,18 @@ def check_dependency_package(package_name: str) -> bool:
 
 
 def self_get_optional_dependency() -> list[str]:
-    # 获取项目元数据
-    metadata = importlib.metadata.metadata("amrita")
+    # 获取项目元数据（优先 MiniAgent，其次兼容 Amrita）
+    metadata = None
+    for dist_name in ("miniagent", "amrita"):
+        try:
+            metadata = importlib.metadata.metadata(dist_name)
+            break
+        except importlib.metadata.PackageNotFoundError:
+            continue
+
+    if metadata is None:
+        raise importlib.metadata.PackageNotFoundError("miniagent")
+
     requires_dist = metadata.json["requires_dist"]
 
     # 提取带有 extra == "full" 标记的依赖

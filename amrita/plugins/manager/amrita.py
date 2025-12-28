@@ -13,7 +13,11 @@ from amrita.plugins.perm.API.admin import is_lp_admin
 from amrita.utils.utils import get_amrita_version
 
 amrita = on_command(
-    "amrita", aliases={"Amrita"}, priority=10, block=True, permission=is_lp_admin
+    "miniagent",
+    aliases={"MiniAgent", "amrita", "Amrita"},
+    priority=10,
+    block=True,
+    permission=is_lp_admin,
 )
 
 
@@ -23,55 +27,67 @@ async def _(matcher: Matcher, args: Message = CommandArg()):
     match len(arg_list):
         case 1:
             if arg_list[0] == "version":
-                await matcher.finish(f"Amrita v{get_amrita_version()}")
-            elif arg_list[0] == "update":
-                await matcher.send("正在检查Amrita更新...")
+                await matcher.finish(
+                    f"MiniAgent v{get_amrita_version()} (based on Amrita)"
+                )
+
+            if arg_list[0] == "update":
+                await matcher.send("正在检查 MiniAgent 更新...")
+
                 try:
                     timeout = ClientTimeout(total=10)
-                    async with ClientSession() as session:
-                        async with session.get(
-                            "https://pypi.org/pypi/amrita/json", timeout=timeout
-                        ) as response:
-                            metadata = await response.json()
-                            if metadata["releases"] != {}:
-                                latest_version = max(
-                                    metadata["releases"].keys(), key=version.parse
-                                )
-                            else:
-                                await matcher.send("检查更新失败，请稍后再试")
-                                return
+                    async with ClientSession(timeout=timeout) as session:
+                        metadata = None
+                        package_name = None
+                        for candidate in ("miniagent", "amrita"):
+                            async with session.get(
+                                f"https://pypi.org/pypi/{candidate}/json"
+                            ) as response:
+                                if response.status != 200:
+                                    continue
+                                metadata = await response.json()
+                                package_name = candidate
+                                break
+
+                    if not package_name or not metadata or metadata.get("releases") == {}:
+                        await matcher.send("检查更新失败，请稍后再试")
+                        return
+
+                    latest_version = max(metadata["releases"].keys(), key=version.parse)
+
                 except Exception:
                     await matcher.finish("错误：无法检查更新")
                 else:
-                    if version.parse(latest_version) > version.parse(
-                        get_amrita_version()
-                    ):
+                    if version.parse(latest_version) > version.parse(get_amrita_version()):
                         await matcher.send(
-                            f"新版本的Amrita已就绪: {latest_version}，正在更新..."
+                            f"新版本已就绪: {latest_version}，正在更新..."
                         )
                         try:
-                            await (
-                                await subprocess.create_subprocess_shell(
-                                    f"uv add amrita=={latest_version}"
-                                    if IS_IN_VENV
-                                    else (
-                                        f"pip install amrita=={latest_version}"
-                                        + (
-                                            "--break-system-packages"
-                                            if sys.platform.lower() == "linux"
-                                            else ""
-                                        )
+                            install_cmd = (
+                                f"uv add {package_name}=={latest_version}"
+                                if IS_IN_VENV
+                                else (
+                                    f"pip install {package_name}=={latest_version}"
+                                    + (
+                                        " --break-system-packages"
+                                        if sys.platform.lower() == "linux"
+                                        else ""
                                     )
                                 )
+                            )
+                            await (
+                                await subprocess.create_subprocess_shell(install_cmd)
                             ).wait()
                             await matcher.send("完成更新，请重新启动程序以应用更改。")
                         except Exception as e:
                             await matcher.send("更新失败：" + str(e))
                     else:
-                        await matcher.send("Amrita已是最新版本。")
-            else:
-                await matcher.finish("错误：参数错误")
+                        await matcher.send("已是最新版本。")
+                return
+
+            await matcher.finish("错误：参数错误")
+
         case _:
             await matcher.finish(
-                "错误：需要1个参数！\n输入格式：/amrita [参数]\n可用：version|update"
+                "错误：需要1个参数！\n输入格式：/miniagent [参数]\n可用：version|update\n别名：/amrita"
             )

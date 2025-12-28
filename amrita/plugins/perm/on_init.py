@@ -7,7 +7,7 @@ from amrita.plugins.perm.config import Config, search_perm
 from amrita.plugins.perm.config import DataManager as DT
 
 banner_template = """\033[34m▗▖   ▗▄▄▖
-▐▌   ▐▌ ▐▌  \033[96mLitePerm\033[34m  \033[1;4;34mV2-Amrita\033[0m\033[34m
+▐▌   ▐▌ ▐▌  \033[96mLitePerm\033[34m  \033[1;4;34mV2-MiniAgent\033[0m\033[34m
 ▐▌   ▐▛▀▘   is initializing...
 ▐▙▄▄▖▐▌\033[0m"""
 

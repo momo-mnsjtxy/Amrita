@@ -1,4 +1,4 @@
-# TODO: Amrita plugin system
+# TODO: MiniAgent plugin system (based on Amrita)
 import sys
 from pathlib import Path
 
@@ -36,9 +36,9 @@ def load_plugins():
         except Exception as e:
             nonebot.logger.error(f"Failed to load plugin {plugin}: {e}")
     for plugin in meta.tool.amrita.plugins:
-        nonebot.logger.debug(f"Loading Amrita plugin {plugin}...")
+        nonebot.logger.debug(f"Loading MiniAgent plugin {plugin}...")
         try:
-            nonebot.require(plugin)  # TODO: Amrita plugin system
+            nonebot.require(plugin)  # TODO: MiniAgent plugin system
         except Exception as e:
             nonebot.logger.error(f"Failed to load plugin {plugin}: {e}")
     nonebot.logger.info("Require local plugins......")

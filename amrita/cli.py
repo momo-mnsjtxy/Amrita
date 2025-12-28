@@ -1,6 +1,8 @@
-"""Amrita CLI工具模块
+"""MiniAgent CLI 工具模块
 
-该模块提供了Amrita项目的命令行界面工具，用于项目管理、依赖检查、插件管理等功能。
+该模块提供了 MiniAgent（基于 Amrita）项目的命令行界面工具，用于项目管理、依赖检查、插件管理等功能。
+
+上游项目：Amrita - https://github.com/LiteSuggarDEV/Amrita
 """
 
 import os
@@ -43,20 +45,22 @@ def get_package_metadata(package_name: str) -> dict[str, Any] | None:
 
 
 def should_update() -> tuple[bool, str]:
-    if metadata := get_package_metadata("amrita"):
-        if metadata["releases"] != {} and version.parse(
-            max(list(metadata["releases"].keys()), key=version.parse)
-        ) > version.parse(get_amrita_version()):
-            latest_version = list(metadata["releases"].keys())[-1]
-            return True, latest_version
-        else:
+    for dist_name in ("miniagent", "amrita"):
+        if metadata := get_package_metadata(dist_name):
+            if metadata["releases"] != {}:
+                latest_version = max(list(metadata["releases"].keys()), key=version.parse)
+                if version.parse(latest_version) > version.parse(get_amrita_version()):
+                    return True, latest_version
+
             click.echo(
                 success(
-                    "主环境Amrita已是最新版本。"
+                    "主环境 MiniAgent 已是最新版本。"
                     if not IS_IN_VENV
-                    else "虚拟环境Amrita已是最新版本。"
+                    else "虚拟环境 MiniAgent 已是最新版本。"
                 )
             )
+            break
+
     return False, get_amrita_version()
 
 
@@ -178,20 +182,19 @@ signal.signal(signal.SIGINT, _signal_handler)
 def check_optional_dependency(
     with_details: bool = False, quiet: bool = False
 ) -> bool | tuple[bool, list[str]]:
-    """检测amrita[full]可选依赖是否已安装
+    """检测 miniagent[full] 可选依赖是否已安装
 
     Args:
-        is_self: 是否在当前环境中直接检查
         with_details: 是否返回详细信息（缺失的依赖列表）
 
     Returns:
-        如果with_details为True，返回(状态, 缺失依赖列表)元组；
+        如果 with_details 为 True，返回 (状态, 缺失依赖列表) 元组；
         否则只返回状态布尔值
     """
     if not IS_IN_VENV:
         try:
             run_proc(
-                ["uv", "run", "amrita", "check-dependencies"],
+                ["uv", "run", "miniagent", "check-dependencies"],
                 stdout=subprocess.PIPE,
             )
             return True
@@ -203,7 +206,9 @@ def check_optional_dependency(
             click.echo(error("一些可选依赖已丢失，但是您可以重新安装它们。"))
             for pkg in missed:
                 click.echo(f"- {pkg} 是被要求的，但是没有被找到。")
-            click.echo(info("您可以通过以下方式来安装它们:\n  uv add amrita[full]"))
+            click.echo(
+                info("您可以通过以下方式来安装它们:\n  uv add miniagent[full]")
+            )
         if with_details:
             return status, missed
         return status
@@ -216,7 +221,7 @@ def install_optional_dependency_no_venv() -> bool:
         安装是否成功
     """
     try:
-        run_proc(["pip", "install", "amrita[full]"])
+        run_proc(["pip", "install", "miniagent[full]"])
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         click.echo(error("pip 运行失败。"))
@@ -224,16 +229,16 @@ def install_optional_dependency_no_venv() -> bool:
 
 
 def install_optional_dependency() -> bool:
-    """安装amrita[full]可选依赖
+    """安装 miniagent[full] 可选依赖
 
-    使用uv工具安装amrita的完整依赖包。
+    使用 uv 工具安装 MiniAgent 的完整依赖包。
 
     Returns:
         安装是否成功
     """
     try:
         proc = subprocess.Popen(
-            ["uv", "add", "amrita[full]"],
+            ["uv", "add", "miniagent[full]"],
             stdout=sys.stdout,
             stderr=sys.stderr,
         )
@@ -242,7 +247,7 @@ def install_optional_dependency() -> bool:
             return_code = proc.wait()
             if return_code != 0:
                 raise subprocess.CalledProcessError(
-                    return_code, ["uv", "add", "amrita[full]"]
+                    return_code, ["uv", "add", "miniagent[full]"]
                 )
             return True
         except KeyboardInterrupt:
@@ -254,7 +259,7 @@ def install_optional_dependency() -> bool:
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         click.echo(
             error(
-                f"因为`{e}`，我们无法自动安装可选依赖, 尝试通过此方式手动安装： 'uv add amrita[full]'"
+                f"因为`{e}`，我们无法自动安装可选依赖, 尝试通过此方式手动安装： 'uv add miniagent[full]'"
             )
         )
         return False
@@ -346,10 +351,10 @@ def success(message: str):
 
 def is_in_venv(fail_then_throw: bool = False) -> bool:
     """综合检查虚拟环境"""
-    if (
-        "AMRITA_IGNORE_VENV" in os.environ
-        and os.environ["AMRITA_IGNORE_VENV"].lower() == "true"
-    ):
+    ignore_venv = os.environ.get("MINIAGENT_IGNORE_VENV") or os.environ.get(
+        "AMRITA_IGNORE_VENV"
+    )
+    if ignore_venv and ignore_venv.lower() == "true":
         click.echo(
             warning("虚拟环境检查已被禁用。这通常不是推荐做法，但如您所愿，这将继续。")
         )
@@ -375,7 +380,7 @@ IS_IN_VENV = is_in_venv()
 
 @click.group()
 def cli():
-    """Amrita CLI - PROJ.AmritaBot项目命令行工具"""
+    """MiniAgent CLI - 项目命令行工具（基于 Amrita 改进）"""
     pass
 
 

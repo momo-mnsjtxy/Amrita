@@ -1,6 +1,6 @@
-"""Amrita CLI插件管理模块
+"""MiniAgent CLI 插件管理模块
 
-该模块实现了Amrita CLI的插件管理命令，包括插件的安装、创建、删除和列表查看等功能。
+该模块实现了 MiniAgent（基于 Amrita）CLI 的插件管理命令，包括插件的安装、创建、删除和列表查看等功能。
 """
 
 import os
@@ -76,7 +76,9 @@ def install(name: str, pypi: bool):
     if (cwd / "plugins" / name).exists():
         click.echo(warn(f"插件 {name} 已存在。"))
         return
-    if pypi or name.replace("_", "-").startswith("amrita-plugin-"):
+    if pypi or name.replace("_", "-").startswith(
+        ("miniagent-plugin-", "amrita-plugin-")
+    ):
         pypi_install(name)
     else:
         try:
@@ -105,7 +107,7 @@ def new(name: str):
     plugins_dir = cwd / "plugins"
 
     if not plugins_dir.exists():
-        click.echo(error("不在Amrita项目目录中。"))
+        click.echo(error("不在 MiniAgent 项目目录中。"))
         return
 
     plugin_dir = plugins_dir / name
@@ -155,7 +157,7 @@ def remove(name: str):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
-        elif name.replace("-", "_").startswith("amrita_plugin"):
+        elif name.replace("-", "_").startswith(("miniagent_plugin", "amrita_plugin")):
             with open(
                 "pyproject.toml",
                 "rb",
@@ -206,12 +208,14 @@ def echo_plugins():
     freeze_str = [
         "(包) " + (i.split("=="))[0]
         for i in (stdout).split("\n")
-        if i.startswith("nonebot-plugin") or i.startswith("amrita-plugin")
+        if i.startswith("nonebot-plugin")
+        or i.startswith("miniagent-plugin")
+        or i.startswith("amrita-plugin")
     ]
     plugins.extend(freeze_str)
 
     if not plugins_dir.exists():
-        click.echo(error("不在Amrita项目目录中。"))
+        click.echo(error("不在 MiniAgent 项目目录中。"))
         return
 
     if not plugins_dir.is_dir():

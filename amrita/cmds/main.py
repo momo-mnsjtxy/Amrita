@@ -1,6 +1,6 @@
-"""Amrita CLI主命令模块
+"""MiniAgent CLI 主命令模块
 
-该模块实现了Amrita CLI的主要命令，包括项目创建、初始化、运行、依赖检查等功能。
+该模块实现了 MiniAgent（基于 Amrita）CLI 的主要命令，包括项目创建、初始化、运行、依赖检查等功能。
 """
 
 import importlib.metadata as metadata
@@ -48,7 +48,7 @@ class Pyproject(BaseModel):
     description: str = ""
     version: str = "0.1.0"
     dependencies: list[str] = Field(
-        default_factory=lambda: [f"amrita[full]>={get_amrita_version()}"]
+        default_factory=lambda: [f"miniagent[full]>={get_amrita_version()}"]
     )
     readme: str = "README.md"
     requires_python: str = Field(default=">=3.10, <3.14", alias="requires-python")
@@ -141,7 +141,7 @@ class UVTool(BaseModel):
 
 
 class AmritaTool(BaseModel):
-    """Amrita工具配置模型"""
+    """MiniAgent 工具配置模型（兼容保留 AmritaTool 名称）"""
 
     plugins: list[str] = [
         "amrita.plugins.chat",
@@ -167,7 +167,7 @@ class Tool(BaseModel):
 class PyprojectFile(BaseModel):
     """Pyproject文件模型"""
 
-    project: Pyproject = Pyproject(name="amrita")
+    project: Pyproject = Pyproject(name="miniagent")
     tool: Tool = Tool()
 
 
@@ -236,11 +236,11 @@ def init_project(
 def version():
     """打印版本号。
 
-    显示Amrita和NoneBot的版本信息。
+    显示 MiniAgent 和 NoneBot 的版本信息。
     """
     try:
         version = get_amrita_version()
-        click.echo(f"Amrita 版本: {version}")
+        click.echo(f"MiniAgent 版本: {version}")
 
         # 尝试获取NoneBot版本
         try:
@@ -250,7 +250,7 @@ def version():
             click.echo(warn("NoneBot 未安装"))
 
     except metadata.PackageNotFoundError:
-        click.echo(error("Amrita 未正确安装"))
+        click.echo(error("MiniAgent 未正确安装"))
 
 
 @cli.command()
@@ -260,7 +260,7 @@ def check_dependencies():
     检查项目依赖是否完整，如不完整则提供修复选项。
 
     """
-    click.echo(info("正在检查Amrita完整依赖..."))
+    click.echo(info("正在检查 MiniAgent 完整依赖..."))
 
     # 检查uv是否可用
     try:
@@ -268,7 +268,7 @@ def check_dependencies():
     except (subprocess.CalledProcessError, FileNotFoundError):
         click.echo(error("UV 未安装，请安装UV后再试！"))
 
-    # 检查amrita[full]依赖
+    # 检查 miniagent[full] 依赖
     if check_optional_dependency():
         click.echo(success("完成依赖检查"))
     else:
@@ -286,7 +286,7 @@ def check_dependencies():
 def create(project_name, description, python_version, this_dir):
     """创建一个新项目。
 
-    创建一个新的Amrita项目，包括目录结构和必要文件。
+    创建一个新的 MiniAgent 项目，包括目录结构和必要文件。
 
     Args:
         project_name: 项目名称
@@ -327,7 +327,7 @@ def create(project_name, description, python_version, this_dir):
     click.echo(success(f"您的项目 {project_name} 已完成创建!"))
     click.echo(info("您接下来可以运行以下命令启动项目:"))
     click.echo(info(f"  cd {project_name if not this_dir else '.'}"))
-    click.echo(info("  amrita run"))
+    click.echo(info("  miniagent run"))
 
 
 @cli.command()
@@ -346,7 +346,7 @@ def entry():
 @cli.command()
 @click.option("--run", "-r", is_flag=True, help="运行项目而不安装依赖。")
 def run(run: bool):
-    """运行Amrita项目。
+    """运行 MiniAgent 项目。
 
     Args:
         run: 是否直接运行项目而不安装依赖
@@ -380,7 +380,7 @@ def run(run: bool):
 
     click.echo(info("正在启动项目"))
     # 构建运行命令
-    cmd = ["uv", "run", "amrita", "run", "--run"]
+    cmd = ["uv", "run", "miniagent", "run", "--run"]
     try:
         run_proc(cmd)
     except Exception:
@@ -391,7 +391,7 @@ def run(run: bool):
 @cli.command()
 @click.option("--description", "-d", help="项目描述", default="")
 def init(description):
-    """将当前目录初始化为Amrita项目。
+    """将当前目录初始化为 MiniAgent 项目。
 
     Args:
         description: 项目描述
@@ -417,7 +417,7 @@ def init(description):
         return
 
     click.echo(success("项目初始化成功！"))
-    click.echo(info("下一步: amrita run"))
+    click.echo(info("下一步: miniagent run"))
 
 
 @cli.command()
@@ -523,7 +523,7 @@ def event(count: str, details: bool):
         extend_list = []
         if details:
             extend_list.append("--details")
-        run_proc(["uv", "run", "amrita", "event", "--count", count, *extend_list])
+        run_proc(["uv", "run", "miniagent", "event", "--count", count, *extend_list])
 
 
 @cli.command(
@@ -559,7 +559,7 @@ def nb(nb_args):
 @cli.command()
 @click.option("--ignore-venv", "-i", is_flag=True, help="忽略Venv环境")
 def test(ignore_venv: bool):
-    """运行Amrita项目的负载测试。"""
+    """运行 MiniAgent 项目的负载测试。"""
     if not check_optional_dependency():
         return click.echo(error("缺少可选依赖 'full'"))
     if ignore_venv or IS_IN_VENV:
@@ -575,39 +575,41 @@ def test(ignore_venv: bool):
         else:
             click.echo(info("完成!"))
     else:
-        run_proc(["uv", "run", "amrita", "test", "--ignore-venv"])
+        run_proc(["uv", "run", "miniagent", "test", "--ignore-venv"])
 
 
 @cli.command()
 def update():
-    """更新Amrita"""
+    """更新 MiniAgent"""
     click.echo(info("正在检查更新..."))
     need_update, version = should_update()
     if need_update:
         if not IS_IN_VENV:
-            click.echo(warn(f"新版本的Amrita已就绪: {version}"))
+            click.echo(warn(f"新版本的 MiniAgent 已就绪: {version}"))
         click.echo(info("正在更新..."))
         run_proc(
-            ["pip", "install", f"amrita=={version}"]
+            ["pip", "install", f"miniagent=={version}"]
             + (["--break-system-packages"] if sys.platform.lower() == "linux" else [])
         )
     if not IS_IN_VENV:
-        click.echo(info("正在检查虚拟环境Amrita..."))
+        click.echo(info("正在检查虚拟环境 MiniAgent..."))
         if not os.path.exists(".venv"):
             click.echo(warn("未找到虚拟环境，已跳过。"))
             return
         venv_version = (
-            stdout_run_proc(["uv", "run", "pip", "show", "amrita"])
+            stdout_run_proc(["uv", "run", "pip", "show", "miniagent"])
             .split("\n")[1]
             .split(" ")[1]
             .strip()
         )
-        click.echo(info(f"检测到虚拟环境Amrita: {venv_version}，目标：{version}"))
+        click.echo(
+            info(f"检测到虚拟环境 MiniAgent: {venv_version}，目标：{version}")
+        )
         if venv_version < version:
-            click.echo(info("正在更新虚拟环境Amrita..."))
+            click.echo(info("正在更新虚拟环境 MiniAgent..."))
             try:
-                run_proc(["uv", "add", f"amrita=={version}"])
+                run_proc(["uv", "add", f"miniagent=={version}"])
             except Exception as e:
-                click.echo(error("虚拟环境Amrita更新失败!"))
+                click.echo(error("虚拟环境 MiniAgent 更新失败!"))
                 click.echo(error(f"错误: {e}"))
                 exit(1)

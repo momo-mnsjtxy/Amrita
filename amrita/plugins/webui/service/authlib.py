@@ -309,7 +309,7 @@ class AuthManager:
             logger.warning(f"Login rate limit exceeded for {client_ip}")
             raise HTTPException(
                 status_code=403,
-                detail="请求过于频繁，请稍后再试，重启Amrita以解除限制。",
+                detail="请求过于频繁，请稍后再试，重启 MiniAgent 以解除限制。",
             )
 
         if username in self.__users:

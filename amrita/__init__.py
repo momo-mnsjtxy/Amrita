@@ -1,6 +1,8 @@
-"""Amrita框架初始化模块
+"""MiniAgent 框架初始化模块
 
-该模块是Amrita框架的入口点，负责导入和初始化核心组件。
+该模块是 MiniAgent（基于 Amrita）框架的入口点，负责导入和初始化核心组件。
+
+上游项目：Amrita - https://github.com/LiteSuggarDEV/Amrita
 """
 
 import nonebot

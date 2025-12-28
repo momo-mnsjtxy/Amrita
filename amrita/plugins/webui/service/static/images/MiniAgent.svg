@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="MiniAgent logo">
+  <title>MiniAgent</title>
+  <defs>
+    <linearGradient id="bg" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3B82F6" />
+      <stop offset="1" stop-color="#8B5CF6" />
+    </linearGradient>
+    <linearGradient id="accent" x1="160" y1="160" x2="352" y2="352" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="240" fill="url(#bg)" />
+
+  <!-- Simple “agent” network + robot head mark (original artwork for MiniAgent) -->
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M164 186 L224 150 L288 170 L340 140" />
+    <path d="M168 318 L220 350 L300 340 L356 372" />
+    <path d="M152 252 L200 230 L312 242 L364 220" />
+  </g>
+
+  <g>
+    <circle cx="164" cy="186" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="224" cy="150" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="288" cy="170" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="340" cy="140" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+
+    <circle cx="152" cy="252" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="200" cy="230" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="312" cy="242" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="364" cy="220" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+
+    <circle cx="168" cy="318" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="220" cy="350" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="300" cy="340" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+    <circle cx="356" cy="372" r="12" fill="#FFFFFF" fill-opacity="0.95" />
+  </g>
+
+  <g>
+    <rect x="162" y="200" width="188" height="150" rx="44" fill="url(#accent)" />
+    <rect x="198" y="186" width="116" height="22" rx="11" fill="#FFFFFF" fill-opacity="0.85" />
+    <circle cx="220" cy="262" r="14" fill="#4F46E5" />
+    <circle cx="292" cy="262" r="14" fill="#4F46E5" />
+    <path d="M232 306 C248 320 264 320 280 306" stroke="#4F46E5" stroke-width="12" fill="none" stroke-linecap="round" />
+    <path d="M256 170 V142" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" />
+    <circle cx="256" cy="132" r="14" fill="#FFFFFF" fill-opacity="0.95" />
+  </g>
+</svg>

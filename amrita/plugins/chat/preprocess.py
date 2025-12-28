@@ -7,7 +7,7 @@ from .config import config_manager
 from .hook_manager import run_hooks
 
 driver = get_driver()
-__LOGO = "\033[34mLoading SuggarChat \033[33m {version}-Amrita......\033[0m"
+__LOGO = "\033[34mLoading SuggarChat \033[33m {version}-MiniAgent......\033[0m"
 
 
 @driver.on_startup

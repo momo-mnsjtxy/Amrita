@@ -47,7 +47,7 @@ async def t_preset(
                 for result in results
             ]
             await send_forward_msg(
-                bot, event, "Amrita-测试结果", str(event.self_id), msg
+                bot, event, "MiniAgent-测试结果", str(event.self_id), msg
             )
         else:
             msg = MessageSegment.text(

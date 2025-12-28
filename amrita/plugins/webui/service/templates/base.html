@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      {% block title %}Amrita Dashboard - Amrita Bot管理后台{% endblock %}
+      {% block title %}MiniAgent Dashboard - MiniAgent Bot 管理后台{% endblock %}
     </title>
     <link
       rel="stylesheet"
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/static/css/base.css" />
     <link rel="stylesheet" href="/static/css/dash.css" />
     {% block extra_head %}{% endblock %}
-    <link rel="shortcut icon" href="/static/images/Amrita.png" />
+    <link rel="shortcut icon" href="/static/images/MiniAgent.svg" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -28,7 +28,7 @@
           <div class="sidebar-logo">
             <i class="fas fa-robot"></i>
           </div>
-          <div class="sidebar-title">Amrita Dashboard</div>
+          <div class="sidebar-title">MiniAgent Dashboard</div>
         </div>
         <div class="sidebar-menu">
           {% for item in sidebar_items %}
@@ -284,7 +284,7 @@
         return token;
       }
       function jmpToGitHub() {
-        window.open("https://github.com/AmritaBot/Amrita", "_blank");
+        window.open("https://github.com/momo-mnsjtxy/MiniAgent", "_blank");
       }
     </script>
     {% block scripts %} {% endblock %}

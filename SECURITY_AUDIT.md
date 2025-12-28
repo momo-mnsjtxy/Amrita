@@ -1,8 +1,8 @@
-# Amrita Security Audit Report
+# MiniAgent Security Audit Report
 
 ## Executive Summary
 
-This document outlines the comprehensive security audit performed on the Amrita project and details all security improvements implemented to address identified vulnerabilities.
+This document outlines the comprehensive security audit originally performed on the Amrita project and its subsequent security improvements. MiniAgent is based on Amrita and inherits these changes.
 
 ## Critical Security Issues Fixed
 
@@ -140,6 +140,6 @@ This document outlines the comprehensive security audit performed on the Amrita 
 
 ## Conclusion
 
-This security audit has significantly improved the security posture of the Amrita project by addressing critical vulnerabilities and implementing security best practices. The implemented fixes provide robust protection against common web application vulnerabilities while maintaining the functionality and usability of the system.
+This security audit has significantly improved the security posture of the upstream Amrita project by addressing critical vulnerabilities and implementing security best practices. Since MiniAgent is based on Amrita, it also benefits from these fixes. The implemented improvements provide robust protection against common web application vulnerabilities while maintaining the functionality and usability of the system.
 
 **Note**: Security is an ongoing process. Regular security reviews, dependency updates, and staying informed about new vulnerabilities are essential for maintaining a secure application.

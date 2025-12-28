@@ -75,7 +75,7 @@ def create_system_info_image(system_info: list[str]):
         header_font = ImageFont.load_default(24)
         content_font = ImageFont.load_default(20)
 
-    title = f"{get_amrita_config().bot_name}@AmritaAgent"
+    title = f"{get_amrita_config().bot_name}@MiniAgent"
     title_bbox = draw.textbbox((0, 0), title, font=title_font)
     title_width = title_bbox[2] - title_bbox[0]
     title_x = (width - title_width) // 2
@@ -116,7 +116,7 @@ def create_system_info_image(system_info: list[str]):
         current_y += line_height
 
     # 绘制底部版本信息
-    version_info = f"Powered by Amrita@{get_amrita_version()}"
+    version_info = f"Powered by MiniAgent@{get_amrita_version()} (based on Amrita)"
     version_bbox = draw.textbbox((0, 0), version_info, font=content_font)
     version_width = version_bbox[2] - version_bbox[0]
     version_x = (width - version_width) // 2
