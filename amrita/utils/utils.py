@@ -2,7 +2,7 @@ from importlib import metadata
 
 __version__ = "unknown"
 
-for _dist_name in ("miniagent", "amrita"):
+for _dist_name in ("minichatagent", "miniagent", "amrita"):
     try:
         __version__ = metadata.version(_dist_name)
         break

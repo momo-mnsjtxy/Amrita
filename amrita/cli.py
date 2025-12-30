@@ -45,10 +45,12 @@ def get_package_metadata(package_name: str) -> dict[str, Any] | None:
 
 
 def should_update() -> tuple[bool, str]:
-    for dist_name in ("miniagent", "amrita"):
+    for dist_name in ("minichatagent", "miniagent", "amrita"):
         if metadata := get_package_metadata(dist_name):
             if metadata["releases"] != {}:
-                latest_version = max(list(metadata["releases"].keys()), key=version.parse)
+                latest_version = max(
+                    list(metadata["releases"].keys()), key=version.parse
+                )
                 if version.parse(latest_version) > version.parse(get_amrita_version()):
                     return True, latest_version
 
@@ -182,7 +184,7 @@ signal.signal(signal.SIGINT, _signal_handler)
 def check_optional_dependency(
     with_details: bool = False, quiet: bool = False
 ) -> bool | tuple[bool, list[str]]:
-    """检测 miniagent[full] 可选依赖是否已安装
+    """检测 minichatagent[full] 可选依赖是否已安装
 
     Args:
         with_details: 是否返回详细信息（缺失的依赖列表）
@@ -207,7 +209,9 @@ def check_optional_dependency(
             for pkg in missed:
                 click.echo(f"- {pkg} 是被要求的，但是没有被找到。")
             click.echo(
-                info("您可以通过以下方式来安装它们:\n  uv add miniagent[full]")
+                info(
+                    "您可以通过以下方式来安装它们:\n  uv add minichatagent[full]"
+                )
             )
         if with_details:
             return status, missed
@@ -221,7 +225,7 @@ def install_optional_dependency_no_venv() -> bool:
         安装是否成功
     """
     try:
-        run_proc(["pip", "install", "miniagent[full]"])
+        run_proc(["pip", "install", "minichatagent[full]"])
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         click.echo(error("pip 运行失败。"))
@@ -229,7 +233,7 @@ def install_optional_dependency_no_venv() -> bool:
 
 
 def install_optional_dependency() -> bool:
-    """安装 miniagent[full] 可选依赖
+    """安装 minichatagent[full] 可选依赖
 
     使用 uv 工具安装 MiniAgent 的完整依赖包。
 
@@ -238,7 +242,7 @@ def install_optional_dependency() -> bool:
     """
     try:
         proc = subprocess.Popen(
-            ["uv", "add", "miniagent[full]"],
+            ["uv", "add", "minichatagent[full]"],
             stdout=sys.stdout,
             stderr=sys.stderr,
         )
@@ -247,7 +251,7 @@ def install_optional_dependency() -> bool:
             return_code = proc.wait()
             if return_code != 0:
                 raise subprocess.CalledProcessError(
-                    return_code, ["uv", "add", "miniagent[full]"]
+                    return_code, ["uv", "add", "minichatagent[full]"]
                 )
             return True
         except KeyboardInterrupt:
@@ -259,7 +263,7 @@ def install_optional_dependency() -> bool:
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         click.echo(
             error(
-                f"因为`{e}`，我们无法自动安装可选依赖, 尝试通过此方式手动安装： 'uv add miniagent[full]'"
+                f"因为`{e}`，我们无法自动安装可选依赖, 尝试通过此方式手动安装： 'uv add minichatagent[full]'"
             )
         )
         return False

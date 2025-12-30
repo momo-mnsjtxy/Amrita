@@ -39,7 +39,11 @@ async def _(matcher: Matcher, args: Message = CommandArg()):
                     async with ClientSession(timeout=timeout) as session:
                         metadata = None
                         package_name = None
-                        for candidate in ("miniagent", "amrita"):
+                        for candidate in (
+                            "minichatagent",
+                            "miniagent",
+                            "amrita",
+                        ):
                             async with session.get(
                                 f"https://pypi.org/pypi/{candidate}/json"
                             ) as response:

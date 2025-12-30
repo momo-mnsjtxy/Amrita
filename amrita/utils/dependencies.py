@@ -27,9 +27,9 @@ def check_dependency_package(package_name: str) -> bool:
 
 
 def self_get_optional_dependency() -> list[str]:
-    # 获取项目元数据（优先 MiniAgent，其次兼容 Amrita）
+    # 获取项目元数据（优先 minichatagent，其次兼容 miniagent / amrita）
     metadata = None
-    for dist_name in ("miniagent", "amrita"):
+    for dist_name in ("minichatagent", "miniagent", "amrita"):
         try:
             metadata = importlib.metadata.metadata(dist_name)
             break
@@ -37,7 +37,7 @@ def self_get_optional_dependency() -> list[str]:
             continue
 
     if metadata is None:
-        raise importlib.metadata.PackageNotFoundError("miniagent")
+        raise importlib.metadata.PackageNotFoundError("minichatagent")
 
     requires_dist = metadata.json["requires_dist"]
 
