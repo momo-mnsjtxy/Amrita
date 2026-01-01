@@ -18,12 +18,12 @@
 - [ ] 开发插件市场/插件仓库功能
 - [ ] 增加插件在线安装/更新功能
 - [ ] 开发更多实用插件：
-- [ ] Linux 命令执行插件
+- [x] Linux 命令执行插件（基本实现完成，带安全控制）
 - [x] 签到与经济系统插件(见[EconomyValue](https://github.com/LiteSuggarDEV/nonebot_plugin_value))
 - [x] 御神签插件（见[Omikuji](https://github.com/AmritaBot/amrita_plugin_omikuji)）
-- [ ] 网页搜索插件
+- [x] 网页搜索插件（基本实现完成）
 - [x] 知识库问答插件
-- [ ] 代码生成插件
+- [x] 代码生成插件（基本实现完成）
 
 ## 高级功能
 - [ ] Agent 能力增强

@@ -116,6 +116,9 @@ plugins = [
     "amrita.plugins.chat",
     "amrita.plugins.manager",
     "amrita.plugins.webui",
+    "amrita.plugins.search",
+    "amrita.plugins.linuxcmd",
+    "amrita.plugins.codegen",
 ]
 
 [tool.nonebot]
