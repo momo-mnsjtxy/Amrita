@@ -48,7 +48,7 @@ class Pyproject(BaseModel):
     description: str = ""
     version: str = "0.1.0"
     dependencies: list[str] = Field(
-        default_factory=lambda: [f"amrita-ministudio[full]>={get_amrita_version()}"]
+        default_factory=lambda: [f"minichatagent[full]>={get_amrita_version()}"]
     )
     readme: str = "README.md"
     requires_python: str = Field(default=">=3.10, <3.14", alias="requires-python")
@@ -268,7 +268,7 @@ def check_dependencies():
     except (subprocess.CalledProcessError, FileNotFoundError):
         click.echo(error("UV 未安装，请安装UV后再试！"))
 
-    # 检查 miniagent[full] 依赖
+    # 检查 minichatagent[full] 依赖
     if check_optional_dependency():
         click.echo(success("完成依赖检查"))
     else:
