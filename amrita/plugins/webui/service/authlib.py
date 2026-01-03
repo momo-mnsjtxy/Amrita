@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import random
 import re
 import secrets
 from abc import ABC
@@ -20,7 +19,7 @@ from typing_extensions import Self
 from amrita.plugins.webui.service.config import get_webui_config
 
 T = TypeVar("T")
-BOT_SESSION_ID = random.randint(0, 1000000)
+BOT_SESSION_ID = secrets.randbits(20)  # 使用密码学安全的随机数
 TOKEN_KEY = f"amrita_token_{BOT_SESSION_ID}"
 
 

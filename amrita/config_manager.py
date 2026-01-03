@@ -20,6 +20,15 @@ T = TypeVar("T", bound=BaseModel)
 CALLBACK_TYPE = Callable[[str, Path], Awaitable]
 FILTER_TYPE = Callable[[watchfiles.main.FileChange], bool]
 
+# 性能优化: 使用__slots__减少内存占用
+class _ConfigManagerStats:
+    __slots__ = ("cache_hits", "cache_misses", "reload_count")
+
+    def __init__(self):
+        self.cache_hits = 0
+        self.cache_misses = 0
+        self.reload_count = 0
+
 
 class BaseDataManager(ABC, Generic[T]):
     """
@@ -153,6 +162,7 @@ class UniConfigManager(Generic[T]):
     _config_file_cache: dict[str, StringIO]  # Path -> StringIO
     _config_instances: dict[str, T]
     _tasks: list[Task]
+    _stats: _ConfigManagerStats  # 性能统计
 
     def __new__(cls, *args, **kwargs):
         """
@@ -172,6 +182,7 @@ class UniConfigManager(Generic[T]):
             cls._config_file_cache = {}
             cls._config_classes_id_to_config = {}
             cls._tasks = []
+            cls._stats = _ConfigManagerStats()
         return cls._instance
 
     def __del__(self):
@@ -346,6 +357,10 @@ class UniConfigManager(Generic[T]):
             T: 配置实例
         """
         plugin_name = plugin_name or _try_get_caller_plugin().name
+        if plugin_name in self._config_instances:
+            self._stats.cache_hits += 1  # 性能统计: 缓存命中
+        else:
+            self._stats.cache_misses += 1  # 性能统计: 缓存未命中
         return self._config_instances.get(
             plugin_name
         ) or await self._get_config_by_file(plugin_name)

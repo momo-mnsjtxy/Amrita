@@ -1,5 +1,5 @@
 # mcp_client.py
-import random
+import random  # 非安全用途: 仅用于工具名称的唯一性映射，无需密码学安全
 from asyncio import Lock
 from copy import deepcopy
 from typing import Any, overload

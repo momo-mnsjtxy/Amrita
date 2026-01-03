@@ -9,6 +9,7 @@ import os
 import signal
 import subprocess
 import sys
+import weakref
 from logging import warning
 from typing import Any
 
@@ -21,8 +22,8 @@ from packaging import version
 from amrita.utils.dependencies import self_check_optional_dependency
 from amrita.utils.utils import get_amrita_version
 
-# 全局变量用于跟踪子进程
-_subprocesses: list[subprocess.Popen] = []
+# 全局变量用于跟踪子进程 - 使用weakref避免内存泄漏
+_subprocesses: weakref.WeakSet[subprocess.Popen] = weakref.WeakSet()
 
 
 def get_package_metadata(package_name: str) -> dict[str, Any] | None:
@@ -61,8 +62,9 @@ def should_update() -> tuple[bool, str]:
                     else "虚拟环境 MiniAgent 已是最新版本。"
                 )
             )
-            break
+            return False, get_amrita_version()  # 修复: 直接在成功检查后返回
 
+    # 如果所有包检查都失败，返回当前版本
     return False, get_amrita_version()
 
 
@@ -91,7 +93,7 @@ def run_proc(
         stdin=stdin,
         **kwargs,
     )
-    _subprocesses.append(proc)
+    _subprocesses.add(proc)
     try:
         return_code = proc.wait()
         if return_code != 0:
@@ -102,8 +104,8 @@ def run_proc(
         _cleanup_subprocesses()
         sys.exit(0)
     finally:
-        if proc in _subprocesses:
-            _subprocesses.remove(proc)
+        # WeakSet handles cleanup automatically
+        pass
 
 
 def stdout_run_proc(cmd: list[str]):
@@ -124,7 +126,7 @@ def stdout_run_proc(cmd: list[str]):
         stderr=subprocess.PIPE,
     )
     stdout, _ = proc.communicate()
-    _subprocesses.append(proc)
+    _subprocesses.add(proc)
     try:
         return_code = proc.wait()
         if return_code != 0:
@@ -133,8 +135,8 @@ def stdout_run_proc(cmd: list[str]):
         _cleanup_subprocesses()
         sys.exit(0)
     finally:
-        if proc in _subprocesses:
-            _subprocesses.remove(proc)
+        # WeakSet handles cleanup automatically
+        pass
     return stdout.decode("utf-8")
 
 
@@ -246,7 +248,7 @@ def install_optional_dependency() -> bool:
             stdout=sys.stdout,
             stderr=sys.stderr,
         )
-        _subprocesses.append(proc)
+        _subprocesses.add(proc)
         try:
             return_code = proc.wait()
             if return_code != 0:
@@ -258,8 +260,8 @@ def install_optional_dependency() -> bool:
             _cleanup_subprocesses()
             sys.exit(0)
         finally:
-            if proc in _subprocesses:
-                _subprocesses.remove(proc)
+            # WeakSet handles cleanup automatically
+            pass
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         click.echo(
             error(
@@ -279,7 +281,7 @@ def check_nb_cli_available():
         proc = subprocess.Popen(
             ["nb", "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        _subprocesses.append(proc)
+        _subprocesses.add(proc)
         try:
             proc.communicate(timeout=10)
             return proc.returncode == 0
@@ -287,8 +289,8 @@ def check_nb_cli_available():
             proc.kill()
             return False
         finally:
-            if proc in _subprocesses:
-                _subprocesses.remove(proc)
+            # WeakSet handles cleanup automatically
+            pass
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
 

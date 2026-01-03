@@ -1,4 +1,4 @@
-import random
+import random  # 非安全用途: 仅用于行为随机化和消息选择
 
 from nonebot.adapters.onebot.v11 import Bot
 from nonebot.adapters.onebot.v11.event import GroupRecallNoticeEvent
